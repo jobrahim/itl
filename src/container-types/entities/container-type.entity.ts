@@ -6,5 +6,8 @@ export class ContainerTypeEntity {
   id: number;
 
   @Column()
+  isoType: string;
+
+  @Column()
   name: string;
 }
