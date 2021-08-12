@@ -3,6 +3,7 @@ import { ContainerTypesModule } from './container-types/container-types.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ContainerTypeEntity } from './container-types/entities/container-type.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { ContainerTypeEntity } from './container-types/entities/container-type.e
     }),
     //end tyoe orm
     ContainerTypesModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],

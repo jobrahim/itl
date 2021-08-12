@@ -1,5 +1,6 @@
-import { Controller, Post, Body, Res } from '@nestjs/common';
+import { Controller, Post, Body, Res, UseGuards } from '@nestjs/common';
 import { HttpStatus } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ContainerTypesService } from './container-types.service';
 import { CreateContainerTypeDto } from './dto/create-container-type.dto';
 
@@ -14,6 +15,7 @@ export class ContainerTypesController {
    * @param createContainerTypeDto
    * @returns
    */
+ // @UseGuards(JwtAuthGuard)
   @Post()
   create(
     @Body() createContainerTypeDto: CreateContainerTypeDto,
