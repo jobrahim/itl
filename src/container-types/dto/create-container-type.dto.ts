@@ -1,6 +1,7 @@
 export class CreateContainerTypeDto {
-    
-    id: number;
-    //Container type
-    name: string;
+  id: number;
+
+  isoType: string;
+
+  name: string;
 }
