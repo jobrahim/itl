@@ -68,7 +68,7 @@ export class ContainerTypesController {
   remove(@Param('id') id: string, @Res() response) {
     this.containerTypesService
       .remove(+id)
-      .then((removeRange) => {
+      .then((removeContainer) => {
         return response
           .status(HttpStatus.OK)
           .json({ success: true, message: '' });
