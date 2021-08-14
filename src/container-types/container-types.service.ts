@@ -28,7 +28,7 @@ export class ContainerTypesService {
   ): Promise<any> {
     return this.repository.update(id, updateContainerTypeDto);
   }
-
+  /**
   async index(isoType: string): Promise<FindContainerTypeDto[]> {
     var query =
       'select * from container_type_entity where isoType=' + isoType + '';
@@ -38,6 +38,11 @@ export class ContainerTypesService {
       dtos.push(new FindContainerTypeDto(containerTypeEntity));
     }
     return dtos;
+  }
+*/
+
+  async findAll(): Promise<ContainerTypeEntity[]> {
+    return this.repository.find();
   }
 
   async findOne(id: number): Promise<FindContainerTypeDto> {

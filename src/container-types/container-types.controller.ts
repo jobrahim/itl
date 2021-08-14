@@ -17,6 +17,7 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ContainerTypesService } from './container-types.service';
 import { CreateContainerTypeDto } from './dto/create-container-type.dto';
 import { UpdateContainerTypeDto } from './dto/update-container-type.dto';
+import { ContainerTypeEntity } from './entities/container-type.entity';
 
 @Controller('container_types')
 export class ContainerTypesController {
@@ -29,7 +30,7 @@ export class ContainerTypesController {
    * @param createContainerTypeDto
    * @returns
    */
- //@UseGuards(JwtAuthGuard)
+  //@UseGuards(JwtAuthGuard)
   @Post()
   create(
     @Body() createContainerTypeDto: CreateContainerTypeDto,
@@ -59,7 +60,8 @@ export class ContainerTypesController {
         return response
           .status(HttpStatus.OK)
           .json({ success: true, message: '' });
-    }).catch(() => {
+      })
+      .catch(() => {
         return response.status(HttpStatus.FORBIDDEN).json({ error: 'error' });
       });
   }
@@ -72,9 +74,21 @@ export class ContainerTypesController {
         return response
           .status(HttpStatus.OK)
           .json({ success: true, message: '' });
-    }).catch(() => {
+      })
+      .catch(() => {
         return response.status(HttpStatus.FORBIDDEN).json({ error: 'error' });
-   });
+      });
   }
+  /** 
+  @Get()
+  indexRanges(@Req() req, @Res() res, @Query() params) {
+    this.containerTypesService.index(params.isoType).then(container => {
+      return res.status(HttpStatus.OK).json(container);
 
+    */
+
+  @Get()
+  findAll(): Promise<ContainerTypeEntity[]> {
+    return this.containerTypesService.findAll();
+  }
 }
