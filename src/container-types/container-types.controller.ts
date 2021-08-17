@@ -63,9 +63,16 @@ export class ContainerTypesController {
     this.containerTypesService
       .update(+id, updateContainerTypeDto)
       .then((updateContainer) => {
-        return response
-          .status(HttpStatus.OK)
-          .json({ success: true, message: '' });
+        if (updateContainer.affected > 0) {
+          return response.status(HttpStatus.OK).json({
+            success: true,
+            message: 'container modificado correctamente',
+          });
+        } else {
+          return response
+            .status(HttpStatus.NO_CONTENT)
+            .json({ success: false, message: 'El contenedor no existe' });
+        }
       })
       .catch(() => {
         return response
@@ -79,16 +86,23 @@ export class ContainerTypesController {
     this.containerTypesService
       .remove(+id)
       .then((removeContainer) => {
-        return response
-          .status(HttpStatus.OK)
-          .json({ success: true, message: '' });
+        if (removeContainer.affected > 0) {
+          return response.status(HttpStatus.OK).json({
+            success: true,
+            message: 'container eliminado correctamente',
+          });
+        } else {
+          return response
+            .status(HttpStatus.NO_CONTENT)
+            .json({ success: false, message: 'el contenedor no existe' });
+        }
       })
       .catch(() => {
         return response.status(HttpStatus.FORBIDDEN).json({ error: 'error' });
       });
   }
 
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Get()
   findAll(@Res() res) {
     this.containerTypesService
