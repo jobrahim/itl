@@ -8,6 +8,7 @@ import {
   Param,
   Delete,
   Get,
+  Query,
 } from '@nestjs/common';
 import { HttpStatus } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
@@ -27,7 +28,7 @@ export class ContainerTypesController {
    * @param createContainerTypeDto
    * @returns
    */
-  @UseGuards(JwtAuthGuard)
+  //@UseGuards(JwtAuthGuard)
   @Post()
   create(
     @Body() createContainerTypeDto: CreateContainerTypeDto,
@@ -41,7 +42,9 @@ export class ContainerTypesController {
           .json({ success: true, message: '' });
       })
       .catch(() => {
-        return response.status(HttpStatus.FORBIDDEN).json({ error: 'error' });
+        return response
+          .status(HttpStatus.FORBIDDEN)
+          .json({ success: false, error: 'error' });
       });
   }
   /**
@@ -50,7 +53,7 @@ export class ContainerTypesController {
    * @param updateContainerTypeDto
    * @param response
    */
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Put(':id')
   update(
     @Param('id') id: string,
@@ -65,10 +68,12 @@ export class ContainerTypesController {
           .json({ success: true, message: '' });
       })
       .catch(() => {
-        return response.status(HttpStatus.FORBIDDEN).json({ error: 'error' });
+        return response
+          .status(HttpStatus.FORBIDDEN)
+          .json({ succes: false, error: 'error' });
       });
   }
-  @UseGuards(JwtAuthGuard)
+  //@UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id') id: string, @Res() response) {
     this.containerTypesService
@@ -83,9 +88,16 @@ export class ContainerTypesController {
       });
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get()
-  findAll(): Promise<ContainerTypeEntity[]> {
-    return this.containerTypesService.findAll();
+  findAll(@Res() res) {
+    this.containerTypesService
+      .findAll()
+      .then((list) => res.status(HttpStatus.OK).json(list))
+      .catch(() => {
+        return res
+          .status(HttpStatus.FORBIDDEN)
+          .json({ success: false, message: 'Error' });
+      });
   }
 }
