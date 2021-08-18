@@ -28,7 +28,7 @@ export class ContainerTypesController {
    * @param createContainerTypeDto
    * @returns
    */
-  //@UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(
     @Body() createContainerTypeDto: CreateContainerTypeDto,
@@ -53,7 +53,7 @@ export class ContainerTypesController {
    * @param updateContainerTypeDto
    * @param response
    */
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Put(':id')
   update(
     @Param('id') id: string,
@@ -80,7 +80,7 @@ export class ContainerTypesController {
           .json({ succes: false, error: 'error' });
       });
   }
-  //@UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id') id: string, @Res() response) {
     this.containerTypesService
